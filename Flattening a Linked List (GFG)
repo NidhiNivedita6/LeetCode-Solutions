@@ -1,6 +1,6 @@
 // Java Solution
 
-class Solution
+class GFG
 {
     Node mergeTwoList(Node a, Node b){
         Node temp = new Node(0);
