@@ -1,0 +1,36 @@
+// Java Solution
+
+class Solution {
+    int[] coins;
+    Integer[] cache;
+    public int coinChange(int[] coins, int amount) {
+        this.coins = coins;
+        this.cache = new Integer[amount + 1];
+        return helper(amount);
+    }
+    private int helper(int amount){
+        if(amount == 0) return 0;
+        if(amount < 0) return -1;
+        
+        if(cache[amount] != null) return cache[amount];
+         int minCoinChange = Integer.MAX_VALUE;
+        
+        // dfs all options
+        for(int nums : coins){
+            int curMinCoinsChange = helper(amount - nums);
+            if(curMinCoinsChange != -1){
+                minCoinChange = Math.min(curMinCoinsChange, minCoinChange);
+            }
+        }
+       // situation 1- minCoinChange didn't change at all 
+        if(minCoinChange == Integer.MAX_VALUE)
+            minCoinChange = -1; // we can't find a path to make up this amount
+        
+        // situation 2 - we found a minCoinChange to make up this current amount
+        else
+            minCoinChange += 1;
+        
+        cache[amount] = minCoinChange;
+        return cache[amount];
+    }
+}
